@@ -1,3 +1,4 @@
+const { resetPassword } = require("../mail/templates/resetPasswordEmail");
 const User = require("../models/User");
 const mailSender = require("../utils/mailSender");
 const bcrypt = require("bcrypt");
@@ -23,7 +24,7 @@ exports.resetPasswordToken = async (req, res) => {
         )
 
         const url = `http://localhost:3000/update-password/${token}`;
-        await mailSender(email, "Password Reset Link", `Password Reset Link : ${url}`);
+        await mailSender(email, "Password Reset Link", resetPassword(updatedDetails.firstName + " " + updatedDetails.lastName, url));
 
         return res.json({
             success: true,
@@ -33,7 +34,7 @@ exports.resetPasswordToken = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 }
 
@@ -55,11 +56,11 @@ exports.resetPassword = async (req, res) => {
             return res.json({ message: "Token Expired" });
         }
 
-        const hashedPassword = await bcrypt.hash(password,10);
+        const hashedPassword = await bcrypt.hash(password, 10);
         await User.findOneAndUpdate(
-            {token: token},
-            {password: hashedPassword},
-            {new: true}
+            { token: token },
+            { password: hashedPassword },
+            { new: true }
         );
 
         return res.status(200).json({
