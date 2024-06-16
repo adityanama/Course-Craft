@@ -9,6 +9,9 @@ import Login from "./pages/Login";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SignUp from "./pages/SignUp";
+import Dashboard from "./pages/Dashboard";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 
 function App() {
@@ -33,6 +36,9 @@ function App() {
                 <Route path="verify-email" element = {<VerifyEmail/>}/>
                 <Route path="login" element = {<Login/>}/>
                 <Route path="signup" element = {<SignUp/>}/>
+                {/* <Route path="dashboard/my-profile" element = {<MyProfile/>}/> */}
+                <Route path="about" element = {<About/>}/>
+                <Route path="contact" element = {<Contact/>}/>
             </Routes>
         </div>
     );
