@@ -43,17 +43,18 @@ exports.resetPassword = async (req, res) => {
         const { password, confirmPassword, token } = req.body;
         if (password != confirmPassword) {
             return res.json({
+                success: false,
                 message: "Password and Confirm Password do not match"
             })
         }
 
         const userDetails = await User.findOne({ token: token });
         if (!userDetails) {
-            return res.json({ message: "Invalid Token" });
+            return res.json({success:false, message: "Invalid Token" });
         }
 
         if (userDetails.resetPasswordExpires < Date.now()) {
-            return res.json({ message: "Token Expired" });
+            return res.json({success:false, message: "Token Expired" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);

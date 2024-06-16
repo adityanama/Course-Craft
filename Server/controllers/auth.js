@@ -16,7 +16,7 @@ exports.sendOTP = async (req, res) => {
         if (checkUserPresent)
             return res.status(400).json({
                 success: false,
-                message: "user already registered",
+                message: "User already Registered",
             })
 
         var otp = otpGenerator.generate(6, {
@@ -43,7 +43,7 @@ exports.sendOTP = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: "OTP sent successfully",
+            message: "OTP sent Successfully",
             otp,
         })
 

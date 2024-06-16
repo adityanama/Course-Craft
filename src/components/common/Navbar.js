@@ -16,13 +16,15 @@ const Navbar = () => {
     const { user } = useSelector((state) => state.profile);
     const { totalItems } = useSelector((state) => state.cart);
 
+    console.log(user);
+
     const [subLinks, setSubLinks] = useState([]);
 
     const fetchSubLinks = async () => {
         try {
             const result = await apiConnector("GET", categories.CATEGORIES_API);
-            console.log(result);
-            console.log(result.data.message);
+            // console.log(result);
+            // console.log(result.data.message);
             setSubLinks(result.data.allCategories);
 
         } catch (error) {
@@ -91,13 +93,14 @@ const Navbar = () => {
                 <div className='flex gap-4 items-center'>
                     {
                         user && user?.accountType != "Instructor" && (
-                            <Link to={"/dashboard/cart"} className='relative'>
-                                <AiOutlineShoppingCart />
-                                {
-                                    totalItems > 0 &&
-                                    <span>{totalItems}</span>
-                                }
-                            </Link>
+                            <Link to="/dashboard/cart" className="relative">
+                            <AiOutlineShoppingCart className="text-2xl text-richblack-100" />
+                            {totalItems > 0 && (
+                                <span className="absolute -bottom-2 -right-2 grid h-5 w-5 place-items-center overflow-hidden rounded-full bg-richblack-600 text-center text-xs font-bold text-yellow-100">
+                                    {totalItems}
+                                </span>
+                            )}
+                        </Link>
                         )
 
                     }
