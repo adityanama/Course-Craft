@@ -12,12 +12,15 @@ import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import MyProfile from "./components/core/Dashboard/MyProfile";
+import PrivateRoute from "./components/core/Auth/PrivateRoute";
+import Settings from "./components/core/Dashboard/Settings";
 
 
 function App() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {user} = useSelector((state) => state.profile);
+    const { user } = useSelector((state) => state.profile);
 
     // useEffect(() => {
     //     if(localStorage.getItem("token")){
@@ -28,17 +31,28 @@ function App() {
 
     return (
         <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
-            <Navbar/>
+            <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="forgot-password" element = {<ForgotPassword/>}/>
-                <Route path="update-password/:token" element = {<UpdatePassword/>}/>
-                <Route path="verify-email" element = {<VerifyEmail/>}/>
-                <Route path="login" element = {<Login/>}/>
-                <Route path="signup" element = {<SignUp/>}/>
-                {/* <Route path="dashboard/my-profile" element = {<MyProfile/>}/> */}
-                <Route path="about" element = {<About/>}/>
-                <Route path="contact" element = {<Contact/>}/>
+                <Route path="forgot-password" element={<ForgotPassword />} />
+                <Route path="update-password/:token" element={<UpdatePassword />} />
+                <Route path="verify-email" element={<VerifyEmail />} />
+                <Route path="login" element={<Login />} />
+                <Route path="signup" element={<SignUp />} />
+
+                <Route path="about" element={<About />} />
+                <Route path="contact" element={<Contact />} />
+
+                <Route
+                    element={
+                        <PrivateRoute>
+                            <Dashboard />
+                        </PrivateRoute>
+                    }
+                >
+                    <Route path="dashboard/my-profile" element={<MyProfile />} />
+                    <Route path="dashboard/settings" element={<Settings />} />
+                </Route>
             </Routes>
         </div>
     );

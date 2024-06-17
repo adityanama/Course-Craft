@@ -4,10 +4,10 @@ const { uploadImageToCloudinary } = require("../utils/imageUploader");
 
 exports.updateProfile = async (req, res) => {
     try {
-        const { dateOfBirth = "", about = "", contactNumber, gender } = req.body;
+        const { dateOfBirth = "", about = "", contactNumber, gender, firstName, lastName } = req.body;
         const id = req.user.id;
 
-        if (!contactNumber || !gender || !id) {
+        if (!contactNumber || !gender || !id || !firstName || !lastName) {
             return res.status(400).json({ message: "Please fill all the fields" });
         }
 
@@ -22,9 +22,17 @@ exports.updateProfile = async (req, res) => {
         profileDetails.contactNumber = contactNumber;
         await profileDetails.save();
 
+        userDetails.firstName = firstName;
+        userDetails.lastName = lastName;
+        await userDetails.save();
+
+        const updatedUserDetails = await User.findById(id).populate("additionalDetails");
+        console.log(updatedUserDetails);
+
         return res.status(200).json({
+            success: true,
             message: "Profile updated successfully",
-            profileDetails,
+            updatedUserDetails,
         });
 
     } catch (error) {
@@ -112,6 +120,7 @@ exports.updateDisplayPicture = async (req, res) => {
         const updatedProfile = await User.findByIdAndUpdate(userId, { image: image.secure_url }, { new: true });
 
         return res.status(200).json({
+            success: true,
             message: "Profile Picture updated Successfully",
             data: updatedProfile,
         })
