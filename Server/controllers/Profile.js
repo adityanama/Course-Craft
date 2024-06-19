@@ -49,16 +49,17 @@ exports.deleteAccount = async (req, res) => {
         const userDetails = await User.findByIdAndDelete(id);
 
         if (!userDetails) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({success:false, message: "User not found" });
         }
 
         return res.status(200).json({
+            success: true,
             message: "Account deleted successfully",
         });
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ success:false,message: "Internal Server Error" });
     }
 }
 
@@ -70,20 +71,21 @@ exports.getAllUserDetails = async (req, res) => {
         const userDetails = await User.findById(id).populate("additionalDetails").exec();
 
         return res.status(200).json({
+            success: true,
             message: "User Data fetched Successfully",
             userDetails,
         });
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ success:false,message: "Internal Server Error" });
     }
 }
 
 exports.getEnrolledCourses = async (req, res) => {
     try {
         const userId = req.user.id;
-        const userDetails = await User.findById(userId).populate("courses").exec(); 4
+        const userDetails = await User.findById(userId).populate("courses").exec();
 
         if (!userDetails) {
             return res.status(400).json({
@@ -93,13 +95,14 @@ exports.getEnrolledCourses = async (req, res) => {
         }
 
         return res.status(200).json({
+            success: true,
             message: "Enrolled Courses fetched Successfully",
             data: userDetails.courses,
         });
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ success:false, message: "Internal Server Error" });
     }
 }
 

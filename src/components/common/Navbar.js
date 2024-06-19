@@ -3,11 +3,12 @@ import Logo from "../../assets/Logo/logo_dark.png";
 import { Link, matchPath, useLocation } from 'react-router-dom';
 import { NavbarLinks } from '../../data/navbar-links'
 import { useSelector } from 'react-redux';
-import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai"
+import { AiOutlineShoppingCart } from "react-icons/ai"
 import { BsChevronDown } from "react-icons/bs"
 import ProfileDropdown from "../core/Auth/ProfileDropdown"
 import { apiConnector } from '../../services/apiconnector';
 import { categories } from '../../services/apis';
+import { fetchCourseCategories } from '../../services/operations/courseDetailsAPI';
 
 
 const Navbar = () => {
@@ -22,10 +23,9 @@ const Navbar = () => {
 
     const fetchSubLinks = async () => {
         try {
-            const result = await apiConnector("GET", categories.CATEGORIES_API);
-            // console.log(result);
-            // console.log(result.data.message);
-            setSubLinks(result.data.allCategories);
+            const result = fetchCourseCategories();
+
+            setSubLinks(result);
 
         } catch (error) {
             console.log(error.message);

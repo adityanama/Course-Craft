@@ -1,8 +1,9 @@
 {
-    "name": "react-tailwind-css-starter-pack",
+    "name": "course-craft",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@ramonak/react-progress-bar": "^5.2.0",
         "@reduxjs/toolkit": "^1.9.5",
         "axios": "^1.7.2",
         "browser-router": "^0.2.0",
