@@ -47,7 +47,7 @@ export const signup = (accountType, firstName, lastName, email, password, confir
 
         } catch (error) {
             toast.error(error?.response?.data?.message);
-            console.log(error.message);
+            console.log(error);
             navigate("/signup")
         }
         dispatch(setLoading(false));

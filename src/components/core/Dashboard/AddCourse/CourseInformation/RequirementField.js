@@ -46,9 +46,6 @@ const RequirementField = ({ name, label, register, setValue, errors }) => {
                 </button>
             </div>
             {
-                console.log(requirementList)
-            }
-            {
                 requirementList.length > 0 && (
                     <ul className="mt-2 list-inside list-disc">
                         {

@@ -3,10 +3,13 @@ import * as Icons from 'react-icons/vsc'
 import { useDispatch } from 'react-redux';
 import { NavLink, matchPath, useLocation } from 'react-router-dom';
 import {AiOutlineShoppingCart} from "react-icons/ai"
+import {CiCirclePlus} from 'react-icons/ci'
+import {BiCategory} from 'react-icons/bi'
 
 const SideBarLink = ({ link }) => {
 
-    const Icon = Icons[link.icon];
+    let Icon = Icons[link.icon];
+
     const location = useLocation();
     const dispatch = useDispatch();
 
@@ -27,7 +30,8 @@ const SideBarLink = ({ link }) => {
                 }`}></span>
             <div className='flex gap-2'>
                 {
-                    link.icon ? (<Icon className = 'text-lg'/>) :  (<AiOutlineShoppingCart className='text-lg'/>)
+                    link?.icon ? <Icon className = 'text-lg'/> : (<AiOutlineShoppingCart className='text-lg'/>)
+
                 }
                 <span className='text-[17px]'>{link.name}</span>
             </div>

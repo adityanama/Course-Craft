@@ -1,4 +1,5 @@
 import { ACCOUNT_TYPE } from "../utils/constants";
+
 export const sidebarLinks = [
   {
     id: 1,
@@ -39,5 +40,17 @@ export const sidebarLinks = [
     name: "Cart",
     path: "/dashboard/cart",
     type: ACCOUNT_TYPE.STUDENT,
+  },
+  {
+    id: 7,
+    name: "Category",
+    path: "/dashboard/category",
+    type: ACCOUNT_TYPE.ADMIN,
+  },
+  {
+    id: 8,
+    name: "Create Category",
+    path: "/dashboard/create-category",
+    type: ACCOUNT_TYPE.ADMIN,
   },
 ];

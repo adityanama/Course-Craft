@@ -23,7 +23,7 @@ const Navbar = () => {
 
     const fetchSubLinks = async () => {
         try {
-            const result = fetchCourseCategories();
+            const result = await fetchCourseCategories();
 
             setSubLinks(result);
 
@@ -66,7 +66,7 @@ const Navbar = () => {
                                                             subLinks.length ? (
                                                                 subLinks.map((subLink, idx) => (
                                                                     <Link key={idx} to={subLink.link}>
-                                                                        <p>{subLink.title}</p>
+                                                                        <p>{subLink.name}</p>
                                                                     </Link>
                                                                 ))
 

@@ -20,6 +20,8 @@ import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
 import Cart from "./components/core/Dashboard/Cart";
 import {ACCOUNT_TYPE} from './utils/constants'
 import AddCourse from "./components/core/Dashboard/AddCourse";
+import Categories from "./components/core/Dashboard/Categories";
+import CreateCategory from "./components/core/Dashboard/CreateCategory";
 
 
 const App = () => {
@@ -69,6 +71,13 @@ const App = () => {
                         user?.accountType == ACCOUNT_TYPE.INSTRUCTOR && 
                         <>
                             <Route path="dashboard/add-course" element={<AddCourse/>} />
+                        </>
+                    }
+                    {
+                        user?.accountType == ACCOUNT_TYPE.ADMIN && 
+                        <>
+                            <Route path="dashboard/category" element={<Categories/>} />
+                            <Route path="dashboard/create-category" element={<CreateCategory/>} />
                         </>
                     }
                 </Route>

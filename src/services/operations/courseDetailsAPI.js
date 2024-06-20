@@ -7,7 +7,6 @@ export const fetchCourseCategories = async () => {
     let result = []
     try {
         const response = await apiConnector("GET", categories.CATEGORIES_API)
-        console.log(response);
 
         if (!response.data.success) {
             throw new Error(response.data.message)
@@ -30,11 +29,11 @@ export const addCourseDetails = async (formData, token) => {
             Authorization: `${token}`
         })
         console.log(response);
-        
+
         if (!response.data.success)
             throw new Error(response.data.message)
-        
-        toast.success(response.data.message);
+
+        // toast.success(response.data.message);
         result = response.data.data
     } catch (error) {
         console.log(error);
@@ -44,11 +43,11 @@ export const addCourseDetails = async (formData, token) => {
     return result
 }
 
-export const editCourseDetails = async(data, token) => {
+export const editCourseDetails = async (data, token) => {
     let result = null
     const toastId = toast.loading("Loading...")
     try {
-        const response = await apiConnector("PUT",courseEndpoints.EDIT_COURSE_API,data,{
+        const response = await apiConnector("PUT", courseEndpoints.EDIT_COURSE_API, data, {
             Authorization: `${token}`
         })
         console.log(response);
@@ -64,4 +63,25 @@ export const editCourseDetails = async(data, token) => {
     }
     toast.dismiss(toastId)
     return result
+}
+
+export const createCategory = async (name, desc, token) => {
+    try {
+        const response = await apiConnector("POST", categories.CREATE_CATEGORIES_API, {
+            name: name,
+            description: desc
+        }, {
+            Authorization: `${token}`
+        })
+        console.log(response);
+
+        if (!response.data.success) {
+            throw new Error(response.data.message)
+        }
+        toast.success(response.data.message);
+
+    } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+    }
 }
