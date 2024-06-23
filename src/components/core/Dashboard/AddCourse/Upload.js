@@ -2,10 +2,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDropzone } from 'react-dropzone';
 import { Player } from 'video-react';
 import {FiUploadCloud} from 'react-icons/fi'
+import "video-react/dist/video-react.css"
+import { useSelector } from 'react-redux';
 
 const Upload = ({ label, name, register, errors, setValue, editData = null, video = false, viewData = null }) => {
 
     const [selectedFile, setSelectedFile] = useState(null)
+    const { course } = useSelector((state) => state.course)
     const [previewSource, setPreviewSource] = useState(
         viewData ? viewData : editData ? editData : ""
     )
@@ -29,9 +32,9 @@ const Upload = ({ label, name, register, errors, setValue, editData = null, vide
     }
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        accept: !video
-            ? { "image/*": [".jpeg", ".jpg", ".png"] }
-            : { "video/*": [".mp4"] },
+        acceptedFiles: !video
+            ? { "image/": [".jpeg", ".jpg", ".png"] }
+            : { "video/": [".mp4"] },
         onDrop,
     })
 

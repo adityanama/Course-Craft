@@ -6,48 +6,50 @@ const Section = require("../models/Section");
 
 exports.createSubSection = async (req, res) => {
     try {
-        const { sectionId, title, description, timeDuration } = req.body;
+        const { sectionId, title, description } = req.body;
 
-        const video = req.files.videoFile;
+        const video = req.files.videoUrl;
 
-        if (!sectionId || !title || !description || !timeDuration || !video) {
-            return res.status(400).json({ message: "Please fill all the fields" });
+        console.log(sectionId,title,description,video);
+
+        if (!sectionId || !title || !description || !video) {
+            return res.status(400).json({ success: false, message: "Please fill all the fields" });
         }
 
         const uploadDetails = await uploadImageToCloudinary(video, process.env.FOLDER_NAME);
 
         const subSectionDetails = await SubSection.create({
             title,
-            timeDuration,
+            timeDuration: `${uploadDetails.duration}`,
             description,
             videoUrl: uploadDetails.secure_url,
         })
 
-        const updatedSection = await Section.findByIdAndUpdate(sectionId, {
-            $push: {
-                subSection: subSectionDetails._id,
-            }
-        }
-            , { new: true });
+        const updatedSection = await Section.findByIdAndUpdate(
+            { _id: sectionId },
+            { $push: { subSection: subSectionDetails._id } },
+            { new: true }
+        ).populate("subSection")
 
         return res.status(200).json({
-            message: "SubSection created successfully",
-            updatedSection,
+            success: true,
+            message: "Lecture uploaded successfully",
+            data :updatedSection,
         });
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({success:false, message: "Internal Server Error" });
     }
 }
 
 exports.updateSubSection = async (req, res) => {
     try {
-        const { subSectionId, title, description } = req.body;
+        const { subSectionId, title, description, sectionId } = req.body;
         const subSection = await SubSection.findById(subSectionId);
 
         if (!subSection) {
-            return res.status(404).json({ message: "SubSection not found" });
+            return res.status(404).json({success:false, message: "SubSection not found" });
         }
 
         if (title)
@@ -63,8 +65,15 @@ exports.updateSubSection = async (req, res) => {
         }
 
         await subSection.save();
+
+        const updatedSection = await Section.findById(sectionId).populate(
+            "subSection"
+        )
+
         return res.status(200).json({
-            message: "SubSection updated successfully",
+            success: true,
+            message: "Updated successfully",
+            data: updatedSection
         })
 
     } catch (error) {
@@ -87,11 +96,17 @@ exports.deleteSubSection = async (req, res) => {
         const subSection = await SubSection.findByIdAndDelete(subSectionId);
 
         if (!subSection) {
-            return res.status(404).json({ message: "SubSection not found" });
+            return res.status(404).json({success:false, message: "SubSection not found" });
         }
 
+        const updatedSection = await Section.findById(sectionId).populate(
+            "subSection"
+        )
+
         return res.status(200).json({
+            success: true,
             message: "SubSection deleted successfully",
+            data: updatedSection
         })
 
     } catch (error) {
