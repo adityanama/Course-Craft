@@ -5,7 +5,10 @@ const {
     createCourse,
     getAllCourses,
     getCourseDetails,
-    editCourse
+    editCourse,
+    getInstructorCourses,
+    deleteCourse,
+    getFullCourseDetails
 } = require("../controllers/Course")
 
 const {
@@ -42,8 +45,10 @@ router.post("/deleteSection", auth, isInstructor, deleteSection)
 router.post("/updateSubSection", auth, isInstructor, updateSubSection)
 router.post("/deleteSubSection", auth, isInstructor, deleteSubSection)
 router.post("/addSubSection", auth, isInstructor, createSubSection)
+router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
 router.get("/getAllCourses", getAllCourses)
 router.post("/getCourseDetails", getCourseDetails)
+router.post("/getFullCourseDetails", auth, getFullCourseDetails)
 
 router.post("/createCategory", auth, isAdmin, createCategory)
 router.get("/showAllCategories", showAllCategories)
@@ -52,5 +57,7 @@ router.post("/getCategoryPageDetails", categoryPageDetails)
 router.post("/createRating", auth, isStudent, createRating)
 router.get("/getAverageRating", getAverageRating)
 router.get("/getReviews", getAllRating)
+
+router.delete("/deleteCourse", deleteCourse)
 
 module.exports = router

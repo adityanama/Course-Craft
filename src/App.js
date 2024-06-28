@@ -18,10 +18,14 @@ import Settings from "./components/core/Dashboard/Settings";
 import { getUserDetails } from "./services/operations/profileAPI";
 import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
 import Cart from "./components/core/Dashboard/Cart";
-import {ACCOUNT_TYPE} from './utils/constants'
+import { ACCOUNT_TYPE } from './utils/constants'
 import AddCourse from "./components/core/Dashboard/AddCourse";
 import Categories from "./components/core/Dashboard/Categories";
 import CreateCategory from "./components/core/Dashboard/CreateCategory";
+import MyCourse from "./components/core/Dashboard/MyCourse";
+import EditCourse from "./components/core/Dashboard/EditCourse";
+import Catalog from "./pages/Catalog";
+import CourseDetails from "./components/core/Course/CourseDetails";
 
 
 const App = () => {
@@ -30,9 +34,9 @@ const App = () => {
     const { user } = useSelector((state) => state.profile);
 
     useEffect(() => {
-        if(localStorage.getItem("token")){
+        if (localStorage.getItem("token")) {
             const token = JSON.parse(localStorage.getItem("token"));
-            dispatch(getUserDetails(token,navigate));
+            dispatch(getUserDetails(token, navigate));
         }
     }, [])
 
@@ -49,6 +53,8 @@ const App = () => {
 
                 <Route path="about" element={<About />} />
                 <Route path="contact" element={<Contact />} />
+                <Route path="catalog/:catalogName" element={<Catalog />} />
+                <Route path="courses/:courseId" element = {<CourseDetails/>}/>
 
                 <Route
                     element={
@@ -59,25 +65,28 @@ const App = () => {
                 >
                     <Route path="dashboard/my-profile" element={<MyProfile />} />
                     <Route path="dashboard/settings" element={<Settings />} />
-                    
+
                     {
-                        user?.accountType == ACCOUNT_TYPE.STUDENT && 
+                        user?.accountType == ACCOUNT_TYPE.STUDENT &&
                         <>
                             <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} />
-                            <Route path="dashboard/cart" element = {<Cart/>} />
+                            <Route path="dashboard/cart" element={<Cart />} />
                         </>
                     }
                     {
-                        user?.accountType == ACCOUNT_TYPE.INSTRUCTOR && 
+                        user?.accountType == ACCOUNT_TYPE.INSTRUCTOR &&
                         <>
-                            <Route path="dashboard/add-course" element={<AddCourse/>} />
+                            <Route path="dashboard/add-course" element={<AddCourse />} />
+                            <Route path="dashboard/my-courses" element={<MyCourse />} />
+                            <Route path="dashboard/edit-course/:courseId" element={<EditCourse />}
+                            />
                         </>
                     }
                     {
-                        user?.accountType == ACCOUNT_TYPE.ADMIN && 
+                        user?.accountType == ACCOUNT_TYPE.ADMIN &&
                         <>
-                            <Route path="dashboard/category" element={<Categories/>} />
-                            <Route path="dashboard/create-category" element={<CreateCategory/>} />
+                            <Route path="dashboard/category" element={<Categories />} />
+                            <Route path="dashboard/create-category" element={<CreateCategory />} />
                         </>
                     }
                 </Route>

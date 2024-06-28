@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 const RequirementField = ({ name, label, register, setValue, errors }) => {
 
-    const { editCourse } = useSelector((state) => state.course);
+    const { editCourse, course } = useSelector((state) => state.course);
     const [requirement, setRequirement] = useState([])
     const [requirementList, setRequirementList] = useState([])
 
@@ -20,6 +20,9 @@ const RequirementField = ({ name, label, register, setValue, errors }) => {
     }
 
     useEffect(() => {
+        if (editCourse) {
+            setRequirementList(course?.instructions)
+        }
         register(name, {
             required: true,
             vaildate: (value) => value.length > 0
@@ -52,7 +55,7 @@ const RequirementField = ({ name, label, register, setValue, errors }) => {
                             requirementList.map((req, index) => (
                                 <li key={index} className="flex items-center text-richblack-5">
                                     <span>{req}</span>
-                                    <button type='button' onClick={()=>handleRemove(index)} className="ml-2 text-xs text-pure-greys-300 ">
+                                    <button type='button' onClick={() => handleRemove(index)} className="ml-2 text-xs text-pure-greys-300 ">
                                         Clear
                                     </button>
                                 </li>

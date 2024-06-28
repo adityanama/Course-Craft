@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCourseDetails, editCourseDetails, fetchCourseCategories } from '../../../../../services/operations/courseDetailsAPI';
@@ -19,6 +19,7 @@ const CourseInformationForm = () => {
         handleSubmit,
         setValue,
         getValues,
+        watch,
         formState: { errors }
     } = useForm();
 
@@ -27,8 +28,9 @@ const CourseInformationForm = () => {
     const { token } = useSelector((state) => state.auth);
     const [loading, setLoading] = useState(false);
     const [courseCategories, setCourseCategories] = useState([])
+    const courseCategory = watch("courseCategory");
 
-    useState(() => {
+    useEffect(() => {
         const getCategories = async () => {
             setLoading(true);
             const categories = await fetchCourseCategories();
@@ -37,38 +39,42 @@ const CourseInformationForm = () => {
         }
 
         if (editCourse) {
+            console.log("course => ", course);
             setValue("courseTitle", course.courseName)
             setValue("courseShortDesc", course.courseDescription)
             setValue("coursePrice", course.price)
             setValue("courseTags", course.tag)
             setValue("courseBenefits", course.whatYouWillLearn)
-            setValue("courseCategory", course.category)
+            setValue("courseCategory", course.category._id)
             setValue("courseRequirements", course.instructions)
             setValue("courseImage", course.thumbnail)
         }
 
         getCategories();
-    })
+    }, [editCourse, setValue])
 
     const isFormUpdated = () => {
         const currentValues = getValues();
-        if (currentValues.courseTitle !== course.courseName ||
+        if (
+            currentValues.courseTitle !== course.courseName ||
             currentValues.courseShortDesc !== course.courseDescription ||
             currentValues.coursePrice !== course.price ||
             currentValues.courseTags.toString() !== course.tag.toString() ||
             currentValues.courseBenefits !== course.whatYouWillLearn ||
-            currentValues.courseCategory._id !== course.category._id ||
+            currentValues.courseCategory !== course.category._id ||
             currentValues.courseRequirements.toString() !==
-            course.instructions.toString() ||
+              course.instructions.toString() ||
             currentValues.courseImage !== course.thumbnail
-        )
+          ) {
             return true
-        else
-            return false
+          }
+          return false
     }
 
     const onSubmit = async (data) => {
+        console.log("data => ", data)
         if (editCourse) {
+            console.log("update => ",isFormUpdated())
             if (isFormUpdated()) {
                 const currentValues = getValues()
                 const formData = new FormData()
@@ -104,18 +110,21 @@ const CourseInformationForm = () => {
                 if (currentValues.courseImage !== course.thumbnail) {
                     formData.append("thumbnailImage", data.courseImage)
                 }
+                console.log(formData);
+
                 setLoading(true);
                 const result = await editCourseDetails(formData, token)
+
                 setLoading(false);
                 if (result) {
                     dispatch(setStep(2))
                     dispatch(setCourse(result))
                 }
-                else {
-                    toast.error("No changes made to the form")
-                }
-                return
             }
+            else {
+                toast.error("No changes made to the form")
+            }
+            return
         }
 
         const formData = new FormData()
@@ -202,10 +211,11 @@ const CourseInformationForm = () => {
             <div className="flex flex-col space-y-2">
                 <label className="text-sm text-richblack-5" htmlFor="courseCategory">Course Category <sup className='text-pink-200'>*</sup></label>
                 <select
-                    {...register("courseCategory", { required: true })}
-                    defaultValue=""
                     id='courseCategory'
                     className="form-style w-full"
+                    value={courseCategory}
+                    onChange={(e) => setValue('courseCategory', e.target.value)}
+                    {...register("courseCategory", { required: true })}
                 >
                     <option value="" disabled>
                         Choose a Category
@@ -224,7 +234,7 @@ const CourseInformationForm = () => {
                 )}
             </div>
 
-            <ChipInput  
+            <ChipInput
                 label="Tags"
                 name="courseTags"
                 placeholder="Enter Tags and press Enter"
@@ -284,6 +294,7 @@ const CourseInformationForm = () => {
                 <IconBtn
                     disabled={loading}
                     text={!editCourse ? "Next" : "Save Changes"}
+                    type={"submit"}
                 >
                     <MdNavigateNext />
                 </IconBtn>

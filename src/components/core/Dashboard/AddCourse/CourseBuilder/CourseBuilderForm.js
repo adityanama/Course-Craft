@@ -41,7 +41,7 @@ const CourseBuilderForm = () => {
             }, token)
         }
 
-        if(result){
+        if (result) {
             dispatch(setCourse(result));
             setEdit(null);
             setValue("sectionName", "");
@@ -58,21 +58,22 @@ const CourseBuilderForm = () => {
         if (course.courseContent.length == 0)
             toast.error("Please add at least one Section")
 
-        if (course.courseContent.some((section) => section.subSection.lenght === 0))
+        else if (course.courseContent.some((section) => section.subSection.length === 0))
             toast.error("Please add at least one Lecture in each Section")
 
-        dispatch(setStep(3));
+        else
+            dispatch(setStep(3));
     }
 
     const handleChangeEdit = (sectionId, sectionName) => {
 
-        if(edit == sectionId){
+        if (edit == sectionId) {
             cancelEdit(null)
             return;
         }
 
         setEdit(sectionId);
-        setValue("sectionName", sectionName);  
+        setValue("sectionName", sectionName);
     }
 
     return (
@@ -116,13 +117,13 @@ const CourseBuilderForm = () => {
             }
             {
                 course.courseContent.length > 0 && (
-                    <NestedView handleChangeEdit = {handleChangeEdit}/>
-                )   
+                    <NestedView handleChangeEdit={handleChangeEdit} />
+                )
             }
 
             <div className='flex justify-end gap-3'>
                 <button onClick={goBack} className={`flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 py-[8px] px-[20px] font-semibold text-richblack-900`}>Back</button>
-                <IconBtn text={"Next"} onClick={goToNext} disabled={loading}></IconBtn>
+                <IconBtn text={"Next"} onclick={goToNext} disabled={loading}></IconBtn>
             </div>
 
         </div>
