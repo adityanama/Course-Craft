@@ -10,3 +10,4 @@ export const COURSE_STATUS = {
 }
 
 export const genders = ["Male", "Female", "Non-Binary", "Prefer not to say", "Other"]
+export const RAZORPAY_KEY = 'rzp_test_naUSZSoILkoyzC'

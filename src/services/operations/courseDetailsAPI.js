@@ -47,12 +47,14 @@ export const addCourseDetails = async (formData, token) => {
 export const fetchCourseDetails = async (courseId) => {
     let result = []
     try {
-        const response = await apiConnector("GET", courseEndpoints.COURSE_DETAILS_API, { courseId })
+        const response = await apiConnector("POST", courseEndpoints.COURSE_DETAILS_API, { courseId })
         console.log(response);
+
         if (!response.data.success) {
             throw new Error(response.data.message)
         }
-        result = response.data.data
+
+        result = response.data
     } catch (error) {
         console.log(error.respone);
     }
@@ -100,7 +102,7 @@ export const deleteCourse = async (data, token) => {
     toast.dismiss(toastId)
 }
 
-export const createCategory = async (name, desc, token) => {
+export const  createCategory = async (name, desc, token) => {
     try {
         const response = await apiConnector("POST", categories.CREATE_CATEGORIES_API, {
             name: name,

@@ -20,12 +20,15 @@ const cartSlice = createSlice({
     reducers: {
         addToCart(state, value) {
             const course = value.payload;
-            const exist = state.cart.find((item) => item._id === course._id);
 
+            const exist = state.cart.findIndex((item) => item._id === course._id);
+
+            
             if (exist >= 0) {
-                toast.error("Course already in cart");
+                toast.error("Course already in cart"); 
                 return;
             }
+
             state.cart.push(course);
             state.totalItems++;
             state.total += course.price;

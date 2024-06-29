@@ -25,7 +25,7 @@ import CreateCategory from "./components/core/Dashboard/CreateCategory";
 import MyCourse from "./components/core/Dashboard/MyCourse";
 import EditCourse from "./components/core/Dashboard/EditCourse";
 import Catalog from "./pages/Catalog";
-import CourseDetails from "./components/core/Course/CourseDetails";
+import CourseDetails from "./pages/CourseDetails";
 
 
 const App = () => {

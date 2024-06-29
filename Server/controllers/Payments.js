@@ -17,6 +17,8 @@ exports.capturePayment = async (req, res) => {
         return res.status(400).json({ message: "Course ID is required" });
     }
 
+    console.log("payemtn => ", courses)
+
     let total_amount = 0
     for (const course_id of courses) {
         let course;
@@ -71,7 +73,9 @@ exports.verifySignature = async (req, res) => {
     const razorpay_signature = req.body?.razorpay_signature
     const courses = req.body?.courses
 
+    console.log("verfiynf = ", req.body)
     const userId = req.user.id
+
 
     if (
         !razorpay_order_id ||
@@ -100,11 +104,12 @@ exports.verifySignature = async (req, res) => {
 
 
 exports.sendPaymentSuccessEmail = async (req, res) => {
-    const { orderId, paymentId, amount } = req.body
+    const { paymentId, amount } = req.body
 
     const userId = req.user.id
+    console.log("emaiil -> ", req.body)
 
-    if (!orderId || !paymentId || !amount || !userId) {
+    if (!paymentId || !amount || !userId) {
         return res
             .status(400)
             .json({ success: false, message: "Please provide all the details" })
@@ -119,7 +124,6 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
             paymentSuccessEmail(
                 `${enrolledStudent.firstName} ${enrolledStudent.lastName}`,
                 amount / 100,
-                orderId,
                 paymentId
             )
         )
@@ -142,7 +146,7 @@ const enrollStudents = async (courses, userId, res) => {
         try {
             const enrolledCourse = await Course.findOneAndUpdate(
                 { _id: courseId },
-                { $push: { studentsEnroled: userId } },
+                { $push: { studentsEnrolled: userId } },
                 { new: true }
             )
 

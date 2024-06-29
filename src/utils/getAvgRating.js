@@ -1,6 +1,8 @@
 
 const getAvgRating = (rating) => {
 
+    console.log(rating);
+
     if (rating?.length === 0) return 0
 
     const totalReviewCount = rating?.reduce((acc, curr) => {
