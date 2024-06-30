@@ -102,7 +102,7 @@ export const deleteCourse = async (data, token) => {
     toast.dismiss(toastId)
 }
 
-export const  createCategory = async (name, desc, token) => {
+export const createCategory = async (name, desc, token) => {
     try {
         const response = await apiConnector("POST", categories.CREATE_CATEGORIES_API, {
             name: name,
@@ -317,6 +317,50 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
     } catch (error) {
         console.log(error)
         result = error.response.data
+    }
+    toast.dismiss(toastId)
+    return result
+}
+
+export const createRating = async (formData, token) => {
+    const toastId = toast.loading("Loading...")
+    let success = false
+    try {
+        const response = await apiConnector("POST", courseEndpoints.CREATE_RATING_API, formData, {
+            Authorization: `${token}`
+        })
+        console.log(response)
+        if (!response.data.success) {
+            throw new Error(response.data.message)
+        }
+        toast.success("Rating Created")
+        success = true
+
+    } catch (error) {
+        console.log(error)
+        toast.error(error.response.data.message)
+    }
+    toast.dismiss(toastId)
+    return success
+}
+
+export const markLectureAsComplete = async (data, token) => {
+    let result = null
+    const toastId = toast.loading("Loading...")
+    try {
+        const respone = await apiConnector("POST", courseEndpoints.LECTURE_COMPLETION_API, data, {
+            Authorization: `${token}`
+        })
+        console.log(respone)
+        if (!respone.data.success) {
+            throw new Error(respone.data.message)
+        }
+        toast.success("Lecture Completed")
+        result = true
+    } catch (error) {
+        console.log(error)
+        toast.error(error.message)
+        result = false
     }
     toast.dismiss(toastId)
     return result

@@ -35,6 +35,8 @@ const {
     getAllRating,
 } = require("../controllers/RatingAndReview")
 
+const {updateCourseProgress} = require("../controllers/courseProgress")
+
 const { auth, isInstructor, isStudent, isAdmin } = require("../middlewares/auth")
 
 router.post("/createCourse", auth, isInstructor, createCourse)
@@ -49,6 +51,8 @@ router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
 router.get("/getAllCourses", getAllCourses)
 router.post("/getCourseDetails", getCourseDetails)
 router.post("/getFullCourseDetails", auth, getFullCourseDetails)
+router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress)
+router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress)
 
 router.post("/createCategory", auth, isAdmin, createCategory)
 router.get("/showAllCategories", showAllCategories)

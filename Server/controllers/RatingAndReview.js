@@ -8,13 +8,15 @@ exports.createRating = async (req, res) => {
         const userId = req.user.id;
         const { rating, review, courseId } = req.body;
 
+
+        console.log(rating,review,courseId)
         const courseDetails = await Course.findOne({
             _id: courseId,
             studentsEnrolled: { $elemMatch: { $eq: userId } }
         });
 
         if (!courseDetails) {
-            return res.status(404).json({ message: "You are not enrolled in this course" })
+            return res.status(404).json({success:false, message: "You are not enrolled in this course" })
         }
 
         const alreadyReviewed = await RatingAndReview.findOne({
@@ -23,7 +25,7 @@ exports.createRating = async (req, res) => {
         })
 
         if (alreadyReviewed) {
-            return res.status(403).json({ message: "You have already reviewed this course" })
+            return res.status(403).json({success:false, message: "You have already reviewed this course" })
         }
 
         const ratingReview = await RatingAndReview.create({
@@ -43,13 +45,14 @@ exports.createRating = async (req, res) => {
         console.log(updatedCourseDetails);
 
         return res.status(200).json({
+            success:true,
             message: "Rating and review added successfully",
             ratingReview
         });
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ success:false, message: "Internal Server Error" });
     }
 }
 
@@ -104,12 +107,13 @@ exports.getAllRating = async (req, res) => {
             .exec();
 
         return res.status(200).json({
+            success: true,
             message: "All ratings fetched successfully",
             data: allReviews
         })
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({success:false, message: "Internal Server Error" });
     }
 }

@@ -18,7 +18,7 @@ const InstructorSection = () => {
                 </div>
 
                 <p className=' text-richblack-300 font-medium text-[16px] text-justify w-[90%]'>
-                    Instructors from around the world teach millions of students on StudyNotion. We provide the tools and skills to teach what you love.
+                    Instructors from around the world teach millions of students on CourseCraft. We provide the tools and skills to teach what you love.
                 </p>
 
                 <div className='w-fit'>
