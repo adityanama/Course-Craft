@@ -1,4 +1,4 @@
-const BASE_URL = "http://course-craft-backend.adityanama.online/api/v1"
+const BASE_URL = "https://course-craft-backend.adityanama.online/api/v1"
 
 export const endpoints = {
     SENDOTP_API: BASE_URL + "/auth/sendotp",
