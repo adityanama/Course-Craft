@@ -2,7 +2,7 @@ import { useState } from "react"
 import { toast } from "react-hot-toast"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import { sendOTP } from "../../../services/operations/authAPI"
 import { setSignupData } from "../../../Slices/authSlice"
@@ -171,9 +171,12 @@ const SignupForm = () => {
                         </span>
                     </label>
                 </div>
+                <Link className="text-sm text-[#158DFF] underline italic" to="https://password-generator.adityanama.online/"  target="_blank">
+                    Try our Password Generator for strong password
+                </Link>
                 <button
                     type="submit"
-                    className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900"
+                    className="mt-3 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900"
                 >
                     Create Account
                 </button>

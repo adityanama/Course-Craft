@@ -17,7 +17,6 @@ const Navbar = () => {
     const { user } = useSelector((state) => state.profile);
     const { totalItems } = useSelector((state) => state.cart);
 
-    // console.log(user);
     const [loading, setLoading] = useState(false)
     const [subLinks, setSubLinks] = useState([]);
 
@@ -68,9 +67,6 @@ const Navbar = () => {
                                                     <p className="text-center">Loading...</p>
                                                 ) : subLinks.length ? (
                                                     <>
-                                                        {/* {
-                                                            console.log(subLinks)
-                                                        } */}
                                                         {subLinks
                                                             ?.filter(
                                                                 (subLink) => subLink?.courses?.length > 0
@@ -138,7 +134,7 @@ const Navbar = () => {
                     {token !== null && <ProfileDropdown />}
                 </div>
                 <button className="mr-4 md:hidden">
-                    <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
+                    <AiOutlineMenu fontSize={24} fill="#AFB2BF"/>
                 </button>
             </div>
         </div>
