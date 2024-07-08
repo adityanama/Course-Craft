@@ -6,7 +6,6 @@ import { fetchCourseDetails } from '../services/operations/courseDetailsAPI'
 import { BiInfoCircle } from "react-icons/bi"
 import { HiOutlineGlobeAlt } from "react-icons/hi"
 import getAvgRating from '../utils/getAvgRating'
-import Error from './Error'
 import ConfirmationModal from '../components/core/Dashboard/ConfirmationModal'
 import RatingStars from '../components/common/RatingStars'
 import { formatDate } from '../utils/formatDate'
@@ -95,11 +94,9 @@ const CourseDetails = () => {
     }
 
     const {
-        _id: course_id,
         courseName,
         courseDescription,
         thumbnail,
-        price,
         whatYouWillLearn,
         courseContent,
         ratingAndReviews,
