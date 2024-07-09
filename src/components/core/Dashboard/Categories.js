@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchCourseCategories } from '../../../services/operations/courseDetailsAPI';
 import toast from 'react-hot-toast';
-import { load } from 'npm';
-
 
 const Categories = () => {
 

@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/free-mode"
 import "swiper/css/pagination"
-import { FreeMode, Pagination, Autoplay } from "swiper/modules"
+import { FreeMode, Pagination, Autoplay } from "swiper"
 import CourseCard from './CourseCard'
 
 const CourseSlider = ({Courses}) => {
