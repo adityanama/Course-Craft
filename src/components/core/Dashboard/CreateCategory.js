@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { createCategory } from '../../../services/operations/courseDetailsAPI'
 import { useSelector } from 'react-redux'
 
-const CreateCategory = ({ data, setData }) => {
+const CreateCategory = () => {
 
     const { token } = useSelector((state) => state.auth)
 
     const [name, setName] = useState("")
     const [desc, setDesc] = useState("")
 
-    useEffect(() => {
-        if (data) {
-            setName(data.name)
-            setDesc(data.desc)
-        }
-    }, [])
 
     const handleSubmit = async () => {
         console.log(name, desc)
         try {
             await createCategory(name, desc, token)
+
             setName("")
             setDesc("")
+
         } catch (error) {
             console.log(error);
         }
@@ -51,17 +47,8 @@ const CreateCategory = ({ data, setData }) => {
                     placeholder='Enter Category Description'
                 />
             </div>
-
-            <div className='flex gap-10'>
-                <button type="submit" className='bg-yellow-50 cursor-pointer gap-x-2 rounded-md py-2 px-5 font-semibold text-richblack-900 block mt-8'>
-                    {
-                        data ? "Update" : "Add"
-                    }
-                </button>
-
-                {data && <button type="submit" onClick={() => setData(null)} className='bg-[#d52f34] cursor-pointer gap-x-2 rounded-md py-2 px-5 font-semibold text-richblack-900 block mt-8'>
-                    Cancel
-                </button>}
+            <div className='bg-yellow-50 cursor-pointer rounded-md py-2 font-semibold text-richblack-900 block mt-8 w-2/12 text-center text-lg' onClick={handleSubmit}>
+                Create
             </div>
         </form>
     )

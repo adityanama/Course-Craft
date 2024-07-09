@@ -40,7 +40,7 @@ const Categories = () => {
                         <div className="flex flex-wrap gap-8 my-20 items-center">
                             {
                                 categories.map((category, index) => (
-                                    <div key={category.id} className="bg-richblack-600 rounded-md p-4 w-48 h-16 shadow-md hover:shadow-lg transition duration-300 ease-in-out flex justify-between">
+                                    <div key={index} className="bg-richblack-600 rounded-md p-4 w-maxContent h-16 shadow-md hover:shadow-lg transition duration-300 ease-in-out flex justify-between">
                                         <p className="text-[22px] text-richblack-5">{category.name}</p>
                                     </div>
                                 ))
