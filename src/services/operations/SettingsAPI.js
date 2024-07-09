@@ -42,7 +42,9 @@ export const updateProfile = (token, formData) => {
                 throw new Error(response.data.message)
             }
 
-            dispatch(setUser(response.data.updatedUserDetails));
+            const user = response.data.updatedUserDetails;
+            user.image = `https://api.dicebear.com/5.x/initials/svg?seed=${formData.firstName[0]}${formData.lastName[0]}`
+            dispatch(setUser(user));
 
             toast.success(response.data.message);
         }
