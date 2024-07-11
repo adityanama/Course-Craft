@@ -3,7 +3,8 @@ const Course = require("../models/Course")
 const CourseProgress = require("../models/CourseProgress")
 const User = require("../models/User");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
-const { convertSecondsToDuration } = require("../utils/secToDuration")
+const { convertSecondsToDuration } = require("../utils/secToDuration");
+const { mongoose } = require("mongoose");
 
 exports.updateProfile = async (req, res) => {
     try {
@@ -74,11 +75,12 @@ exports.deleteAccount = async (req, res) => {
         }
 
         await User.findByIdAndDelete({ _id: id })
+        await CourseProgress.deleteMany({ userId: id })
+
         res.status(200).json({
             success: true,
             message: "User deleted successfully",
         })
-        await CourseProgress.deleteMany({ userId: id })
 
     } catch (error) {
         console.log(error)
