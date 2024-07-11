@@ -14,12 +14,13 @@ export const getCatalogPageData = async (categoryId, dispatch) => {
         
         console.log(response);
         if (!response?.data?.success)
-            throw new Error(response.data.message);
+            return result
+    
         result = response.data.data
 
     } catch (error) {
         console.log(error)
-        toast.error(error.message)
+        // toast.error(error.message)
     }
     toast.dismiss(toastId);
     dispatch(setLoading(false))

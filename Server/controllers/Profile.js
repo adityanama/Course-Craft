@@ -25,8 +25,12 @@ exports.updateProfile = async (req, res) => {
         profileDetails.contactNumber = contactNumber;
         await profileDetails.save();
 
+
         userDetails.firstName = firstName;
         userDetails.lastName = lastName;
+        if (userDetails.image.includes('dicebear'))
+            userDetails.image = `https://api.dicebear.com/5.x/initials/svg?seed=${firstName[0]}${lastName[0]}`
+
         await userDetails.save();
 
         const updatedUserDetails = await User.findById(id).populate("additionalDetails");
@@ -182,7 +186,7 @@ exports.updateDisplayPicture = async (req, res) => {
 
         console.log(image);
 
-        const updatedProfile = await User.findByIdAndUpdate(userId, { image: image.secure_url }, { new: true });
+        const updatedProfile = await User.findByIdAndUpdate(userId, { image: image.secure_url }, { new: true }).populate("additionalDetails");
 
         return res.status(200).json({
             success: true,

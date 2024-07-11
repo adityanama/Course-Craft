@@ -18,11 +18,15 @@ database.dbConnect();
 
 app.use(express.json());
 app.use(cookieparser());
-app.use(cors());
+
+app.use(cors({
+    origin: ["http://localhost:3000", "https://coursecraft.adityama.online/"],
+}));
+
 app.use(fileUpload({
     useTempFiles: true,
     tempFileDir: "/tmp"
-}));
+}));    
 
 cloudinaryConnect();
 

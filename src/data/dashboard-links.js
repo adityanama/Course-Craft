@@ -46,11 +46,14 @@ export const sidebarLinks = [
     name: "Category",
     path: "/dashboard/category",
     type: ACCOUNT_TYPE.ADMIN,
+    icon: 'VscSymbolStructure'
+    
   },
   {
     id: 8,
     name: "Create Category",
     path: "/dashboard/create-category",
     type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscAdd",
   },
 ];
