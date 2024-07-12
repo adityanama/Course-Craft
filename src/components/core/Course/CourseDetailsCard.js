@@ -46,6 +46,18 @@ const CourseDetailsCard = ({ course, setConfModal, handleBuyCourse }) => {
         toast.success("Link Copied to Clipboard")
     }
 
+    const formatItem = (item, i) => {
+        const n = item.length
+        console.log(item,n)
+        
+        if (i == 0)
+            return item.substr(2, n-3)
+        else if (item.at(-1) == ']')
+            return item.substr(1, n - 3)
+        else
+            return item.substr(1,n-2)
+    }
+
     return (
         <div className={`flex flex-col gap-4 rounded-md bg-richblack-700 p-4 text-richblack-5`}>
             <img
@@ -85,14 +97,14 @@ const CourseDetailsCard = ({ course, setConfModal, handleBuyCourse }) => {
             </div>
 
             <div>
-                <p className={`my-2 text-xl font-semibold `}>Additional Information : </p>
+                <p className={`my-3 text-xl font-semibold `}>Additional Information : </p>
 
                 <div className='flex flex-col gap-3 text-sm text-caribbeangreen-100'>
                     {
-                        course.instructions.map((item, i) => (
+                        course.instructions.at(0).split(',').map((item, i) => (
                             <p className='flex gap-2' key={i}>
                                 <BsFillCaretRightFill />
-                                <span>{item}</span>
+                                <span>{formatItem(item, i)}</span>
                             </p>
                         ))
                     }

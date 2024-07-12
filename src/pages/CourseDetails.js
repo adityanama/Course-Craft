@@ -33,7 +33,6 @@ const CourseDetails = () => {
             try {
                 const res = await fetchCourseDetails(courseId)
                 setCourseData(res);
-                console.log("details -> ", res)
             } catch (error) {
                 console.log(error)
             }
@@ -47,8 +46,6 @@ const CourseDetails = () => {
         }
     }, [courseData])
 
-
-    console.log("course details -> ", courseData?.data?.courseDetails?.ratingAndReviews)
     useEffect(() => {
         let lectures = 0;
         courseData?.data?.courseDetails?.courseContent?.forEach((sec) => {
@@ -57,7 +54,6 @@ const CourseDetails = () => {
         setTotalNoOfLectures(lectures)
     }, [courseData])
 
-    console.log(totalNoOfLectures)
 
     const handleActive = (id) => {
         setIsActive(
@@ -69,7 +65,6 @@ const CourseDetails = () => {
 
     const handleBuyCourse = () => {
         if (token) {
-            console.log("Payment process begin", process.env.RAZORPAY_KEY)
             buyCourse(token, [courseId], user, navigate, dispatch);
             return
         }
