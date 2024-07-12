@@ -106,7 +106,7 @@ const Catalog = () => {
                                 <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
                                     {
                                         catalogPageData?.mostSellingCourses.slice(0, 4).map((course, id) => (
-                                            <CourseCard course={course} key={id} Height={"h-[400px]"} />
+                                            <CourseCard course={course} key={id} Height={"h-[300px]"} />
                                         ))
                                     }
 

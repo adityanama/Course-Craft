@@ -163,7 +163,6 @@ const CourseDetails = () => {
                                     <p className="text-3xl font-semibold">What You Will learn</p>
                                     <div className="mt-5">
                                         {whatYouWillLearn}
-                                        {/* <ReactMarkdown>}</ReactMarkdown> */}
                                     </div>
                                 </div>
 
