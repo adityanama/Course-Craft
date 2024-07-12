@@ -10,9 +10,9 @@ const DeleteAccount = () => {
     const { token } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [confirmationModal, setConfirmationModal] = useState(null);
 
     const handleDeleteAccount = () => {
+        console.log("delete")
         try {
             dispatch(deleteProfile(token, navigate))
         } catch (error) {
@@ -40,24 +40,13 @@ const DeleteAccount = () => {
                     <button
                         type="button"
                         className="w-fit cursor-pointer italic text-pink-300"
-                        onClick={() =>
-                            setConfirmationModal({
-                                text1: "Are you sure?",
-                                text2: "Your account will be deleted permanently.",
-                                btn1Text: "Delete",
-                                btn2Text: "Cancel",
-                                btn1Handler: () => handleDeleteAccount,
-                                btn2Handler: () => setConfirmationModal(null),
-                            })
-                        }
+                        onClick={handleDeleteAccount}
                     >
                         I want to delete my account.
                     </button>
                 </div>
 
             </div>
-
-            {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
         </>
     )
 }

@@ -8,7 +8,7 @@ import { ACCOUNT_TYPE } from '../../../../utils/constants'
 
 const Settings = () => {
     const {user} = useSelector((state) => state.profile)
-    console.log(user);
+    // console.log(user);
     return (
         <>
             <h1 className="mb-14 text-3xl font-medium text-richblack-5">
