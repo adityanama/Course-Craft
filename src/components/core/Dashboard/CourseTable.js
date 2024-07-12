@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import {useSelector } from 'react-redux';
 import { Table, Tbody, Td, Th, Thead, Tr } from 'react-super-responsive-table'
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,6 @@ const CourseTable = ({ courses, setCourses }) => {
 
     const { token } = useSelector((state) => state.auth)
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const [loading, setLoading] = useState(false)
     const [duration, setDuration] = useState({})
     const [confirmationModal, setConfirmationModal] = useState(null)
@@ -41,7 +40,6 @@ const CourseTable = ({ courses, setCourses }) => {
         console.log(courseId)
         try {
             const res = await fetchCourseDetails(courseId)
-            console.log("details -> ", res)
             setDuration((prev) => ({
                 ...prev,
                 [courseId]: res.data.totalDuration
@@ -56,9 +54,6 @@ const CourseTable = ({ courses, setCourses }) => {
         for (const course of courses)
             getCourseDetails(course._id);
     }, [courses])
-
-    console.log("duration => ", duration)
-    console.log("duration => ", courses.length)
 
     return (
         <>
