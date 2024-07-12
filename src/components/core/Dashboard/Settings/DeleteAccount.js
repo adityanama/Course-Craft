@@ -3,7 +3,7 @@ import { FiTrash2 } from "react-icons/fi"
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { deleteProfile } from '../../../../services/operations/SettingsAPI'
-import ConfirmationModal from '../../Dashboard/ConfirmationModal'
+
 
 const DeleteAccount = () => {
 
