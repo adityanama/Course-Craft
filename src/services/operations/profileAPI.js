@@ -23,7 +23,6 @@ export const getUserDetails = (token, navigate) => {
         } catch (error) {
             dispatch(logout(navigate))
             console.log(error)
-            toast.error("Could Not Get User Details");
         }
         toast.dismiss(toastId)
         dispatch(setLoading(false))
