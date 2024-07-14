@@ -4,7 +4,6 @@ import { studentEndpoints } from '../apis'
 import Logo from "../../assets/Logo/logo_dark.png";
 import { setPaymentLoading } from "../../Slices/courseSlice";
 import { resetCart } from "../../Slices/cartSlice";
-import { RAZORPAY_KEY } from "../../utils/constants";
 
 
 const loadScript = (src) => {
@@ -47,7 +46,7 @@ export const buyCourse = async (token, courses, user_details, navigate, dispatch
             currency: orderResponse.data.data.currency,
             amount: `${orderResponse.data.data.amount}`,
             order_id: orderResponse.data.data.id,
-            name: "StudyNotion",
+            name: "CourseCraft",
             description: "Thank you for Purchasing the Course.",
             image: Logo,
             prefill: {
