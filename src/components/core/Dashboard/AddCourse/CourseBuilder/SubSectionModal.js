@@ -46,7 +46,7 @@ const SubSectionModal = ({ modalData, setModalData, edit = false, view = false, 
         if (currValues.lectureDesc !== modalData.description)
             formData.append("description", currValues.lectureDesc);
         if (currValues.lectureVideo !== modalData.videoUrl)
-            formData.append("videoUrl", currValues.lectureVideo);
+            formData.append("video", currValues.lectureVideo);
 
         setLoading(true);
         const result = await updateSubSection(formData, token)
