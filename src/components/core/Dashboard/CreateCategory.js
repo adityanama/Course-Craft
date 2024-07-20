@@ -34,6 +34,7 @@ const CreateCategory = () => {
                     value={name}
                     className="form-style w-[35%]"
                     placeholder='Enter Category Name'
+                    required
                 />
             </div>
             <div className='flex flex-row space-x-10 items-start'>
@@ -45,6 +46,7 @@ const CreateCategory = () => {
                     value={desc}
                     className="form-style w-[55%]"
                     placeholder='Enter Category Description'
+                    reqired
                 />
             </div>
             <div className='bg-yellow-50 cursor-pointer rounded-md py-2 font-semibold text-richblack-900 block mt-8 w-2/12 text-center text-lg' onClick={handleSubmit}>
