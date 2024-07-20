@@ -119,7 +119,7 @@ export const createCategory = async (name, desc, token) => {
 
     } catch (error) {
         console.log(error);
-        toast.error(error.respone.data.message);
+        toast.error(error.response.data.message);
     }
 }
 
